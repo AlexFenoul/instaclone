@@ -20,7 +20,15 @@ postsRouter.post('/', (req, res)=> {
         return res.status(201).json(savedPost);
     }
     return res.status(403).send('Not authorized')
-    
+});
+
+postsRouter.put('/like', async (req, res)=> {
+    const auth = req.currentUser;
+    if (auth){
+        await Post.updateOne({ _id: req.body.id }, req.body);
+        return res.status(201)
+    }
+    return res.status(403).send('Not authorized')
 });
 
 module.exports = postsRouter;

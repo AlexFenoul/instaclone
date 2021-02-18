@@ -3,13 +3,12 @@ import firebase from "firebase";
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
-    apiKey: "AIzaSyDyZ2owoTjrZOBMzuSeP2Q1wIXgQwnH0Ao",
-    authDomain: "instaclone-a4c7b.firebaseapp.com",
-    projectId: "instaclone-a4c7b",
-    storageBucket: "instaclone-a4c7b.appspot.com",
-    messagingSenderId: "691114612735",
-    appId: "1:691114612735:web:1324b82128a3ebd0bd39ca",
-    measurementId: "G-8DC1MCF5J4"
+    apiKey: "AIzaSyCRJGxkbq88pWPCPFSp8Cdvv5tfcwioW4s",
+    authDomain: "web-fullstack.firebaseapp.com",
+    projectId: "web-fullstack",
+    storageBucket: "web-fullstack.appspot.com",
+    messagingSenderId: "813468091744",
+    appId: "1:813468091744:web:b0ac27790264c0c9838a05",
   };
  
   try {
@@ -21,5 +20,3 @@ import firebase from "firebase";
   }
   const fire = firebase;
   export default fire;
-
-  

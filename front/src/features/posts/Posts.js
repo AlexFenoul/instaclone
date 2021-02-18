@@ -1,13 +1,13 @@
 import React from "react";
 
-
+import fire from '../../fire';
 import {Box, Button, Text, TextInput} from "grommet";
-import {Refresh} from "grommet-icons";
+import {Like, Dislike} from "grommet-icons";
 
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
-import {addPost, getPosts} from "../../services/postsServices";
+import {addPost, getPosts, like} from "../../services/postsServices";
 
 
 const Posts = () => {
@@ -15,12 +15,13 @@ const Posts = () => {
     const [posts, setposts] = React.useState();
     const [content, setcontent] =React.useState();
     const [refresh, setrefresh] = React.useState(true);
+    const user = fire.auth().currentUser;
 
     const publish = (e) => {
         e.preventDefault();
         
         if (content){
-            addPost(content)
+            addPost(content, user.email).then(setrefresh(true))
         }
     }
 
@@ -44,31 +45,21 @@ const Posts = () => {
                 <TextInput placeholder="content" onChange={(e)=> setcontent(e.target.value)} />
                 <Button label="publier" onClick={(e)=> publish(e)}/>
             </Box>
-            <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
-            <Card 
-            round="medium" 
-            padding="medium" 
-            justify="center"
-            align="center"
-            margin="medium"
-            width="medium"
-            height="medium">
                 {posts ? 
                 posts.map(post => (
                     <CardConcave align="center"
                     justify="center"
-                    round="medium"
-                    padding="medium"
-                    margin="small"
-                    width="small">
+                    margin="medium"
+                    width="medium">
+                        <Text>{post.email}</Text>
                         <Text>{post.content}</Text>
+                        <Text>Like : {post.like.length} <Button icon={<Like />} onClick={()=> like(user.email, post).then(setrefresh(true))}/></Text>
                     </CardConcave>
                 ))
 
                  : 
                 <Text>Ceci sont les posts</Text>
                 }
-            </Card>
         </Box>
     )
 }

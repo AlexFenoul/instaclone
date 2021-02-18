@@ -3,6 +3,7 @@ import axios from "axios";
 import fire from '../fire';
 
 const url = 'http://localhost:3001/posts'
+const urlLike = 'http://localhost:3001/posts/like'
 
 const createToken = async () => {
 
@@ -19,11 +20,12 @@ const createToken = async () => {
     return payloadHeader;
 }
 
-export const addPost = async (content) => {
+export const addPost = async (content, email) => {
     const header = await createToken();
-    console.log(content)
     const payload ={
-        content
+        content,
+        email,
+        like: []
     }
     try {
         const res = await axios.post(url, payload, header);
@@ -45,3 +47,37 @@ export const getPosts = async () => {
     }
 }
 
+export const like = async (email, post) => {
+    const header = await createToken();
+    var alreadyLiked = false;
+    var index = 0
+
+    post.like.map((likeEmail, likeIndex) => {
+        if(likeEmail === email){
+            alreadyLiked = true
+            index = likeIndex
+        }
+    })
+    
+    alreadyLiked?  removeItemOnce(post.like, email) : post.like.push(email)
+    const payload ={
+        id: post.id,
+        content: post.content,
+        email: post.email,
+        like: post.like
+    }
+    try {
+        const res = await axios.put(urlLike, payload, header);
+        return res.data;
+    }catch (e) {
+        console.error(e);
+    }
+}
+
+function removeItemOnce(arr, value) {
+    var index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }

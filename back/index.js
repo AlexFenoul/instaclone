@@ -10,7 +10,7 @@ app.use(decodeIDToken);
 app.use(express.json());
 
 mongoose.connect(
-    'mongodb+srv://admin:k6TjIs1IQIyyyWZd@instaclone.uld3e.mongodb.net/instaclone?retryWrites=true&w=majority',
+    'mongodb+srv://Instaclone:MXU3HQFMQaEAFqcc@instaclone.wag7o.mongodb.net/instaclone?retryWrites=true&w=majority',
     {
         useNewUrlParser: true, useUnifiedTopology: true 
     }
